@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Population Differentiation Lab</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="workspace">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Population ecology and genetics</p>
+          <h1>Metapopulation Differentiation Lab</h1>
+          <p class="copyright-line">Copyright &copy; David Tarkhnishvili</p>
+        </div>
+        <div class="topbar-actions">
+          <button id="loadNeutralCheck" class="secondary-btn" type="button">Neutral drift check</button>
+          <button id="loadExample" class="secondary-btn" type="button">Load example</button>
+        </div>
+      </header>
+
+      <section class="metapop-hero" aria-label="Animated metapopulation illustration">
+        <div class="landscape" aria-hidden="true">
+          <span class="habitat habitat-a"></span>
+          <span class="habitat habitat-b"></span>
+          <span class="habitat habitat-c"></span>
+          <span class="habitat habitat-d"></span>
+          <span class="migration-line line-ab"></span>
+          <span class="migration-line line-bc"></span>
+          <span class="migration-line line-cd"></span>
+          <span class="migration-line line-ac"></span>
+          <span class="migrant migrant-1"></span>
+          <span class="migrant migrant-2"></span>
+          <span class="migrant migrant-3"></span>
+          <span class="allele allele-1"></span>
+          <span class="allele allele-2"></span>
+          <span class="allele allele-3"></span>
+          <span class="allele allele-4"></span>
+        </div>
+        <div class="hero-copy">
+          <p class="eyebrow">Interactive simulation</p>
+          <h2>Local demes, migration, drift, and differentiation through time</h2>
+        </div>
+      </section>
+
+      <section class="panel controls-panel" aria-labelledby="modelInputs">
+        <div class="section-head">
+          <div>
+            <h2 id="modelInputs">Model inputs</h2>
+            <p>Enter local population parameters, run permutations, and compare F-statistics.</p>
+          </div>
+          <button id="addPopulation" class="primary-btn" type="button">Add population</button>
+        </div>
+
+        <div class="input-grid model-grid">
+          <label>
+            Local populations
+            <input id="populationCount" type="number" min="2" max="12" step="1" value="2">
+          </label>
+          <label>
+            Number of loci
+            <input id="lociCount" type="number" min="1" step="1" value="10">
+          </label>
+          <label>
+            Isolation time, t
+            <input id="generationCount" type="number" min="0" step="1" value="50">
+          </label>
+          <label>
+            Mutation rate
+            <input id="mutationRate" type="number" min="0" step="0.000001" value="0.00001">
+          </label>
+          <label>
+            Permutations
+            <input id="permutations" type="number" min="1" max="20000" step="1" value="1000">
+          </label>
+          <label>
+            Local mating model
+            <select id="matingModel">
+              <option value="hw" selected>Hardy-Weinberg</option>
+              <option value="partial">Partial inbreeding</option>
+              <option value="cumulative">Cumulative drift</option>
+            </select>
+          </label>
+          <label>
+            Inbreeding rate
+            <input id="inbreedingRate" type="number" min="0" max="1" step="0.01" value="0">
+          </label>
+          <label>
+            Environmental synchrony
+            <input id="environmentalSynchrony" type="number" min="0" max="1" step="0.05" value="0">
+          </label>
+          <label class="checkbox-label">
+            <input id="indirectMigration" type="checkbox" checked>
+            Stepping-stone indirect migration for Fst
+          </label>
+          <label class="checkbox-label">
+            <input id="founderSampling" type="checkbox" checked>
+            Founder-sample initial allele copies
+          </label>
+          <label class="checkbox-label">
+            <input id="demographicMigration" type="checkbox" checked>
+            Migration changes population size
+          </label>
+        </div>
+
+        <div class="loci-panel">
+          <div>
+            <h3>Selection coefficients for 5 loci</h3>
+            <p>Use 0 for neutral loci. Positive s lowers tracked-allele fitness as w = 1 - s.</p>
+          </div>
+          <div class="selection-grid">
+            <label>Locus 1<input class="selection-input" type="number" step="0.001" value="0"></label>
+            <label>Locus 2<input class="selection-input" type="number" step="0.001" value="0"></label>
+            <label>Locus 3<input class="selection-input" type="number" step="0.001" value="0"></label>
+            <label>Locus 4<input class="selection-input" type="number" step="0.001" value="0"></label>
+            <label>Locus 5<input class="selection-input" type="number" step="0.001" value="0"></label>
+          </div>
+        </div>
+
+        <div class="matrix-panel">
+          <div class="section-head compact">
+            <div>
+              <h2>Initial allele frequencies</h2>
+              <p>Set the starting frequency for one tracked allele at each of five loci in each population.</p>
+            </div>
+          </div>
+          <div id="alleleFrequencyMatrix" class="table-wrap"></div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="input-table">
+            <thead>
+              <tr>
+                <th>Population</th>
+                <th>N0</th>
+                <th>Growth r</th>
+                <th>Env. noise SD</th>
+                <th>K</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="populationRows"></tbody>
+          </table>
+        </div>
+
+        <div class="matrix-panel">
+          <div class="section-head compact">
+            <div>
+              <h2>Migration matrix</h2>
+              <p>Directional rates set expected migrants; realized migrants are integer Poisson draws.</p>
+            </div>
+          </div>
+          <div id="migrationMatrix" class="table-wrap"></div>
+        </div>
+
+        <div class="action-row">
+          <button id="runModel" class="primary-btn large" type="button">Run model</button>
+          <button id="resetModel" class="secondary-btn" type="button">Reset</button>
+          <div class="progress-wrap">
+            <div class="progress-track" aria-hidden="true">
+              <div id="progressBar" class="progress-bar"></div>
+            </div>
+            <p id="statusText" class="status-text" role="status"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="results-grid">
+        <article class="panel metric-panel">
+          <h2>Metapopulation summary</h2>
+          <div id="summaryMetrics" class="metric-grid"></div>
+        </article>
+
+        <article class="panel formula-panel">
+          <h2>Model formulas</h2>
+        <div class="formula-list">
+            <p><strong>Isolation:</strong> Fst = 1 - (1 - 1 / 2Ne)<sup>t</sup></p>
+            <p><strong>Migration equilibrium:</strong> Fst = 1 / (1 + 4Nm), using realized migrant counts</p>
+            <p><strong>Total inbreeding:</strong> 1 - Fit = (1 - Fis)(1 - Fst)</p>
+            <p><strong>Dynamic pair Fst:</strong> isolation Fst x migration-equilibrium Fst, with optional indirect paths</p>
+            <p><strong>Local Fis:</strong> Hardy-Weinberg, partial inbreeding, or cumulative drift</p>
+            <p><strong>Alleles:</strong> tracked-allele fitness w = 1 - s, mutation, discrete migration, Wright-Fisher sampling</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel output-panel">
+        <div class="section-head">
+          <div>
+            <h2>Local population outputs</h2>
+            <p>Hobs and Hexp are shown for each population across the requested loci and permutations.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Population</th>
+                <th>Mean final Ne</th>
+                <th>Hexp</th>
+                <th>Hobs</th>
+                <th>Fis</th>
+                <th>95% interval Hexp</th>
+                <th>Extinction risk</th>
+              </tr>
+            </thead>
+            <tbody id="populationOutput"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel output-panel">
+        <div class="section-head">
+          <div>
+            <h2>Pair-wise Fst</h2>
+            <p>Each pair reports isolation-based, migration-based, and combined differentiation.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Pair</th>
+                <th>Fst isolation</th>
+                <th>Fst migration</th>
+                <th>Combined Fst</th>
+                <th>Nm</th>
+              </tr>
+            </thead>
+            <tbody id="pairwiseOutput"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel output-panel">
+        <div class="section-head">
+          <div>
+            <h2>F-statistic dynamics</h2>
+            <p>Fst is shown for every population pair. Fis charts are collapsed because they are flat under Hardy-Weinberg equilibrium.</p>
+          </div>
+        </div>
+        <div id="fstCharts" class="chart-grid"></div>
+        <details class="chart-details">
+          <summary>Show Fis dynamics</summary>
+          <p class="details-note">Fis is per local population. Under Hardy-Weinberg equilibrium it remains zero, so these charts are mostly useful for partial inbreeding or cumulative drift models.</p>
+          <div id="fisCharts" class="chart-grid"></div>
+        </details>
+      </section>
+
+      <section class="panel output-panel">
+        <div class="section-head">
+          <div>
+            <h2>Population size dynamics</h2>
+            <p>Ne is shown for each local population across generations. Grey bands show 95% HPD intervals across permutations.</p>
+          </div>
+        </div>
+        <div id="neCharts" class="chart-grid"></div>
+      </section>
+
+      <section class="panel output-panel">
+        <div class="section-head">
+          <div>
+            <h2>Allele dynamics</h2>
+            <p>One allele per locus is tracked for five loci in each local population; grey bands show 95% HPD intervals.</p>
+          </div>
+        </div>
+        <div id="alleleCharts" class="chart-grid"></div>
+      </section>
+
+      <section class="panel output-panel">
+        <div class="section-head">
+          <div>
+            <h2>Fixation outcomes</h2>
+            <p>Permutation proportions show whether population pairs fixed the same or different alleles.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Pair</th>
+                <th>Locus</th>
+                <th>Same tracked fixed</th>
+                <th>Same alternative fixed</th>
+                <th>Total same fixed</th>
+                <th>Different fixed</th>
+                <th>Different among fixed</th>
+                <th>Polymorphic</th>
+                <th>Extinct</th>
+              </tr>
+            </thead>
+            <tbody id="fixationOutput"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer class="app-footer">
+        <p>Copyright &copy; David Tarkhnishvili</p>
+      </footer>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

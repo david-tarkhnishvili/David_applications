@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Population Differentiation Lab - User Manual</title>
+  <style>
+    @page {
+      margin: 18mm;
+    }
+
+    body {
+      color: #17211d;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11pt;
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: #145947;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: 26pt;
+      margin: 0 0 8pt;
+    }
+
+    h2 {
+      border-bottom: 1px solid #cfd8d2;
+      font-size: 17pt;
+      margin: 22pt 0 8pt;
+      padding-bottom: 4pt;
+    }
+
+    h3 {
+      font-size: 13pt;
+      margin: 14pt 0 5pt;
+    }
+
+    p {
+      margin: 0 0 8pt;
+    }
+
+    ul,
+    ol {
+      margin: 0 0 9pt 18pt;
+      padding: 0;
+    }
+
+    li {
+      margin: 0 0 4pt;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin: 8pt 0 12pt;
+      width: 100%;
+    }
+
+    th,
+    td {
+      border: 1px solid #cfd8d2;
+      padding: 6pt;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eaf2ef;
+      color: #145947;
+    }
+
+    code,
+    .eq {
+      background: #f4f7f5;
+      border: 1px solid #dbe4df;
+      border-radius: 4pt;
+      font-family: "Courier New", Courier, monospace;
+      padding: 1pt 3pt;
+    }
+
+    .equation {
+      background: #f7faf8;
+      border-left: 4pt solid #1f7a62;
+      font-family: "Courier New", Courier, monospace;
+      margin: 7pt 0 10pt;
+      padding: 7pt 9pt;
+      white-space: pre-wrap;
+    }
+
+    .cover {
+      border-bottom: 4pt solid #1f7a62;
+      margin-bottom: 18pt;
+      padding-bottom: 18pt;
+    }
+
+    .subtitle {
+      color: #4e6158;
+      font-size: 13pt;
+      margin-bottom: 14pt;
+    }
+
+    .note {
+      background: #fff8ea;
+      border-left: 4pt solid #c87434;
+      margin: 8pt 0 12pt;
+      padding: 8pt 10pt;
+    }
+
+    .page-break {
+      break-before: page;
+    }
+  </style>
+</head>
+<body>
+  <section class="cover">
+    <h1>Population Differentiation Lab</h1>
+    <p class="subtitle">User manual for teaching population ecology and genetics</p>
+    <p>
+      This manual describes how the web application works, how to enter parameters,
+      how to interpret outputs, and which assumptions, equations, and random
+      distributions are used by the model.
+    </p>
+  </section>
+
+  <h2>1. Purpose</h2>
+  <p>
+    Population Differentiation Lab is a browser-based teaching tool for exploring
+    how local population size, mutation, selection, migration, extinction, drift,
+    and local mating assumptions affect genetic differentiation in a metapopulation.
+  </p>
+  <p>
+    The app is designed for conceptual exploration. It is not intended to replace
+    a full individual-based population-genetic simulator or a formal inference
+    package.
+  </p>
+
+  <h2>2. Running The Program</h2>
+  <ol>
+    <li>Open <code>index.html</code> in a web browser.</li>
+    <li>Enter model parameters in the input panels.</li>
+    <li>Press <strong>Run model</strong>.</li>
+    <li>Inspect summary values, tables, dynamics graphs, and fixation outcomes.</li>
+    <li>Use <strong>Reset</strong> to return to default settings, or <strong>Load example</strong> to load a demonstration metapopulation.</li>
+    <li>Use <strong>Neutral drift check</strong> to load an isolated neutral two-population diagnostic scenario.</li>
+  </ol>
+
+  <h2>3. Inputs</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Input</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Local populations</td>
+        <td>Number of local populations. The default is 2; more can be added.</td>
+      </tr>
+      <tr>
+        <td>Number of loci</td>
+        <td>Total loci represented in heterozygosity calculations. Allele dynamics are shown for five tracked loci.</td>
+      </tr>
+      <tr>
+        <td>Isolation time, t</td>
+        <td>Number of generations used for dynamic calculations.</td>
+      </tr>
+      <tr>
+        <td>Mutation rate</td>
+        <td>Symmetric mutation rate between the tracked allele and the alternative allele.</td>
+      </tr>
+      <tr>
+        <td>Permutations</td>
+        <td>Number of stochastic replicate simulations.</td>
+      </tr>
+      <tr>
+        <td>Local mating model</td>
+        <td>Controls how Fis is generated: Hardy-Weinberg, partial inbreeding, or cumulative drift.</td>
+      </tr>
+      <tr>
+        <td>Inbreeding rate</td>
+        <td>Used only in the partial inbreeding model.</td>
+      </tr>
+      <tr>
+        <td>Environmental synchrony</td>
+        <td>Correlation of environmental noise among populations. 0 means independent local shocks; 1 means fully shared environmental shocks.</td>
+      </tr>
+      <tr>
+        <td>Selection coefficients</td>
+        <td>For the five tracked loci. Positive s lowers tracked-allele fitness as w = 1 - s.</td>
+      </tr>
+      <tr>
+        <td>Initial allele frequencies</td>
+        <td>Starting frequency of one tracked allele at five loci in each local population.</td>
+      </tr>
+      <tr>
+        <td>N0</td>
+        <td>Initial population size at generation 0.</td>
+      </tr>
+      <tr>
+        <td>Growth rate r</td>
+        <td>Intrinsic growth rate in the stochastic logistic population-size model.</td>
+      </tr>
+      <tr>
+        <td>Environmental noise SD</td>
+        <td>Standard deviation of environmental noise added to the logistic growth exponent.</td>
+      </tr>
+      <tr>
+        <td>K</td>
+        <td>Upper limit for local population size.</td>
+      </tr>
+      <tr>
+        <td>Migration matrix</td>
+        <td>Directional migration rates. Rows are source populations and columns are destination populations.</td>
+      </tr>
+      <tr>
+        <td>Stepping-stone indirect migration for Fst</td>
+        <td>When checked, indirect migration paths are included in the migration modifier for pair-wise Fst.</td>
+      </tr>
+      <tr>
+        <td>Founder-sample initial allele copies</td>
+        <td>When checked, initial allele frequencies are converted to independent binomial allele-copy samples for each population and locus.</td>
+      </tr>
+      <tr>
+        <td>Migration changes population size</td>
+        <td>When checked, realized migrants also move individuals among populations and can rescue or recolonize demes.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>4. Population-Size Model</h2>
+  <p>
+    Each permutation starts with local population size <code>N0</code>. For each later
+    generation, population size follows a stochastic logistic update, rounded to
+    an integer, and bounded between 0 and K.
+  </p>
+  <div class="equation">shared shock ~ Normal(0, 1)
+local shock ~ Normal(0, 1)
+environmental noise = SD * (sqrt(c) * shared shock + sqrt(1 - c) * local shock)
+N(t+1) = N(t) * exp( r * (1 - N(t) / K) + environmental noise )
+N(t+1) = round( clamp( N(t+1), 0, K ) )</div>
+  <p>
+    If <code>N_t &lt; 2</code>, that local population is considered extinct for the rest
+    of that permutation unless demographic migration later recolonizes it.
+  </p>
+  <ul>
+    <li>Extinct populations have allele frequency 0 in the plots.</li>
+    <li>Extinct populations have Hexp = 0 and Hobs = 0.</li>
+    <li>Extinct populations do not send migrants.</li>
+    <li>Extinct populations are excluded from comparable pair-wise Fst dynamics.</li>
+    <li>If demographic migration is enabled, incoming migrants can rescue or recolonize a deme once local N reaches at least 2.</li>
+  </ul>
+
+  <h2>5. Migration Model</h2>
+  <p>
+    Migration rates are directional. For example, the rate from population 1 to
+    population 2 can differ from the rate from population 2 to population 1.
+  </p>
+  <p>
+    Realized migrants are integer counts drawn from a Poisson distribution:
+  </p>
+  <div class="equation">expected migrants from i to j = N_i * m_ij
+M_ij ~ Poisson(N_i * m_ij)</div>
+  <p>
+    This permits rare migration. For example, if <code>N = 100</code> and
+    <code>m = 0.001</code>, then expected migrants per generation are 0.1, or about
+    one migrant every ten generations on average.
+  </p>
+
+  <h3>Stepping-Stone Indirect Migration For Fst</h3>
+  <p>
+    If the stepping-stone option is enabled, pair-wise Fst can include indirect
+    migration paths. Indirect path contributions are calculated as products of
+    the direct rates along a path.
+  </p>
+  <div class="equation">m_13,indirect = m_12 * m_23</div>
+  <p>
+    Thus, if <code>m_12 = 0.1</code> and <code>m_23 = 0.1</code>, then the indirect
+    contribution from population 1 to population 3 is <code>0.01</code>.
+  </p>
+  <div class="note">
+    Allele movement is still simulated generation by generation using direct
+    migration. Indirect gene flow appears through intermediate populations over
+    time. The indirect-path option affects the Fst migration modifier.
+  </div>
+
+  <h2>6. Allele Dynamics</h2>
+  <p>
+    The app tracks one allele at five loci in each population. Let p be the
+    frequency of the tracked allele.
+  </p>
+
+  <h3>Selection</h3>
+  <p>
+    The tracked allele has relative fitness <code>w = 1 - s</code>. The alternative
+    allele has fitness 1. Positive <code>s</code> therefore selects against the
+    tracked allele.
+  </p>
+  <div class="equation">w_tracked = max(0, 1 - s)
+w_alternative = 1
+mean fitness = p * w_tracked + (1 - p) * w_alternative
+p_after_selection = (p * w_tracked) / mean fitness</div>
+
+  <h3>Migration</h3>
+  <p>
+    After selection, destination populations receive realized integer migrants.
+    The allele frequency after migration is a weighted average of resident and
+    immigrant allele frequencies.
+  </p>
+  <div class="equation">p_after_migration =
+((resident count * p_resident) + sum(migrants from source i * p_i)) / N_destination</div>
+
+  <h3>Mutation</h3>
+  <p>
+    Mutation is symmetric between the tracked allele and alternative allele.
+  </p>
+  <div class="equation">p_after_mutation = p * (1 - mutation rate) + (1 - p) * mutation rate</div>
+
+  <h3>Genetic Drift</h3>
+  <p>
+    If founder sampling is enabled, the initial allele frequency entered by the
+    user is treated as an expected frequency. Initial allele copies are sampled
+    independently for each population and locus.
+  </p>
+  <div class="equation">X0 ~ Binomial(2N0, p0)
+p0,realized = X0 / (2N0)</div>
+  <p>
+    Genetic drift is modeled by Wright-Fisher binomial sampling of gene copies.
+  </p>
+  <div class="equation">X ~ Binomial(2N, p_after_mutation)
+p_next = X / (2N)</div>
+  <p>
+    Because this final step is discrete, tracked alleles can become fixed at
+    frequency 1 or extinct at frequency 0.
+  </p>
+
+  <h2>7. F-Statistics</h2>
+  <h3>Fis</h3>
+  <p>
+    Fis is treated as a within-population quantity. It measures departure of
+    observed heterozygosity from Hardy-Weinberg expectation.
+  </p>
+  <div class="equation">Fis = 1 - Hobs / Hexp</div>
+  <p>The app offers three local Fis models:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>Equation</th>
+        <th>Interpretation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Hardy-Weinberg</td>
+        <td><code>Fis = 0</code></td>
+        <td>Random mating within each local population each generation.</td>
+      </tr>
+      <tr>
+        <td>Partial inbreeding</td>
+        <td><code>Fis(t+1) = s * (1 + Fis(t)) / 2</code></td>
+        <td>Fis approaches equilibrium <code>s / (2 - s)</code>.</td>
+      </tr>
+      <tr>
+        <td>Cumulative drift</td>
+        <td><code>Fis = 1 - (1 - 1 / 2Ne)^t</code></td>
+        <td>Closed finite population contrast where identity by descent accumulates.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Fst</h3>
+  <p>
+    Fst is not population-specific. It is calculated for population pairs, and
+    summary Fst is the mean across pair-wise values.
+  </p>
+  <div class="equation">Fst_isolation = 1 - (1 - 1 / (2Ne))^t
+Fst_migration = 1 / (1 + 4Nm)
+Dynamic pair Fst = Fst_isolation * Fst_migration</div>
+  <p>
+    The migration expression is treated as an equilibrium modifier, not as a
+    generation-0 value. Therefore pair-wise Fst starts at 0 when initial allele
+    frequencies are equal.
+  </p>
+
+  <h3>Fit</h3>
+  <p>Fit is calculated from Fis and Fst:</p>
+  <div class="equation">1 - Fit = (1 - Fis) * (1 - Fst)</div>
+
+  <h2>8. Heterozygosity</h2>
+  <p>
+    The app reports expected and observed heterozygosity for each local population.
+    Hexp is derived from a mutation-drift teaching approximation using theta:
+  </p>
+  <div class="equation">theta = 4 * Ne * mutation rate
+neutral Hexp = theta / (1 + theta)</div>
+  <p>
+    Selection and the number of loci apply additional teaching-model adjustments
+    to Hexp. Hobs is then calculated from Fis:
+  </p>
+  <div class="equation">Hobs = Hexp * (1 - Fis)</div>
+  <div class="note">
+    Low Hexp means low genetic diversity. High Fis means heterozygote deficit
+    relative to Hardy-Weinberg expectations. These are not the same quantity.
+  </div>
+
+  <h2>9. Random Distributions Used</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Process</th>
+        <th>Distribution</th>
+        <th>Use</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Population size</td>
+        <td>Stochastic logistic update with shared/local environmental noise</td>
+        <td>Generates local N through time from the previous generation.</td>
+      </tr>
+      <tr>
+        <td>Migrant counts</td>
+        <td>Poisson(N_source * migration rate)</td>
+        <td>Generates realized integer migrants.</td>
+      </tr>
+      <tr>
+        <td>Genetic drift</td>
+        <td>Binomial(2N, allele frequency)</td>
+        <td>Wright-Fisher sampling of gene copies.</td>
+      </tr>
+      <tr>
+        <td>HPD intervals</td>
+        <td>Empirical shortest 95% interval from permutation values</td>
+        <td>Grey uncertainty bands in dynamics plots.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>10. Outputs</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Output</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Metapopulation summary</td>
+        <td>Mean Fis, mean pair-wise Fst, Fit, and mean Hexp/Hobs.</td>
+      </tr>
+      <tr>
+        <td>Local population outputs</td>
+        <td>Mean final Ne, Hexp, Hobs, Fis, 95% interval for Hexp, and extinction risk.</td>
+      </tr>
+      <tr>
+        <td>Pair-wise Fst table</td>
+        <td>Pair-specific isolation Fst, migration Fst, combined Fst, and Nm.</td>
+      </tr>
+      <tr>
+        <td>F-statistic dynamics</td>
+        <td>Fis per population and Fst per population pair, with 95% HPD bands.</td>
+      </tr>
+      <tr>
+        <td>Allele dynamics</td>
+        <td>Mean allele-frequency trajectories and 95% HPD bands for five tracked loci.</td>
+      </tr>
+      <tr>
+        <td>Fixation outcomes</td>
+        <td>Permutation proportions ending as same tracked fixed, same alternative fixed, total same fixed, different fixed, polymorphic, or extinct.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>11. Interpreting Mean Allele-Frequency Plots</h2>
+  <p>
+    Mean allele-frequency lines can remain close to 0.5 even when individual
+    permutations have fixed at 0 or 1. For this reason, the app also reports
+    95% HPD bands and fixation outcome proportions.
+  </p>
+  <p>
+    The fixation outcome table is often the clearest way to see whether two
+    populations tend to fix the same allele, fix different alleles, remain
+    polymorphic, or go extinct.
+  </p>
+  <p>
+    The Neutral drift check preset loads two isolated populations with equal
+    initial allele frequencies, no mutation, no migration, no selection, constant
+    small population size, and many generations. Under this independent neutral
+    scenario, fixed outcomes should approach approximately:
+  </p>
+  <div class="equation">same tracked fixed      = 0.25
+same alternative fixed  = 0.25
+different fixed         = 0.50</div>
+  <p>
+    The "different among fixed" column is useful when some permutations are still
+    polymorphic at the final generation.
+  </p>
+
+  <h2>12. Recommended Teaching Scenarios</h2>
+  <ul>
+    <li><strong>Random mating, stable demes:</strong> choose Hardy-Weinberg Fis, moderate-to-high N0, positive r, low environmental noise, and moderate-to-high K.</li>
+    <li><strong>Drift and fixation:</strong> use small Ne, low migration, low mutation, and many generations.</li>
+    <li><strong>Rare migration:</strong> use small migration rates such as 0.001; Poisson migration can produce occasional migrants.</li>
+    <li><strong>Stepping-stone structure:</strong> use three or more populations with migration between neighboring demes and enable indirect migration for Fst.</li>
+    <li><strong>Inbreeding equilibrium:</strong> choose partial inbreeding and vary the inbreeding rate.</li>
+  </ul>
+</body>
+</html>
