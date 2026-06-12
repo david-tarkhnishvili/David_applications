@@ -1,0 +1,22 @@
+window.TAXONOMY_ACTIVE_SET = [
+  "alcedo-atthis",
+  "arctia-caja",
+  "buprestis-salomonii",
+  "asplenium-scolopendrium",
+  "capra-cylindricornis",
+  "cirsium-mill",
+  "darevskia-derjugini",
+  "fagus-orientalis",
+  "euscorpius-mingrelicus",
+  "lepidurus-apus",
+  "cinclus-cinclus",
+  "ephedra-procera",
+  "gyromitra-parma",
+  "hemyda-obscuripennis",
+  "libelloides-macaronius",
+  "oryctes-nasicornis",
+  "plantago-major",
+  "rhododendron-luteum",
+  "scolia-j-c-fabricius",
+  "thomisus-onustus"
+];
