@@ -1,0 +1,63 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LESLIE Population Dynamics App</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #183733;
+      background: linear-gradient(115deg, #e8f0ed 0%, #f7fbf7 60%, #f2e6bd 100%);
+      display: grid;
+      place-items: center;
+    }
+    main {
+      max-width: 720px;
+      padding: 2rem;
+    }
+    h1 {
+      margin: 0 0 0.75rem 0;
+      font-size: 2rem;
+    }
+    p {
+      line-height: 1.55;
+      font-size: 1rem;
+    }
+    a {
+      color: #0e5f59;
+      font-weight: 700;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid #cddcd7;
+      border-radius: 8px;
+      padding: 1.25rem 1.4rem;
+      box-shadow: 0 14px 32px rgba(24, 55, 51, 0.12);
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>LESLIE Population Dynamics App</h1>
+    <p id="message">Preparing to open the application...</p>
+    <p><a id="app-link" href="#">Open LESLIE</a></p>
+  </main>
+  <script>
+    const streamlitUrl = "REPLACE_WITH_STREAMLIT_APP_URL";
+    const message = document.getElementById("message");
+    const link = document.getElementById("app-link");
+
+    if (streamlitUrl.startsWith("http")) {
+      link.href = streamlitUrl;
+      message.textContent = "Opening the Streamlit version of LESLIE. If it does not open automatically, use the link below.";
+      window.location.replace(streamlitUrl);
+    } else {
+      link.removeAttribute("href");
+      message.textContent = "The GitHub Pages launcher is ready, but the Streamlit Cloud URL still needs to be inserted into index.html.";
+    }
+  </script>
+</body>
+</html>
