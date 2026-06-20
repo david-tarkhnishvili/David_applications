@@ -1,0 +1,40 @@
+{
+  "id": "6d80eb9046bd4279b4879909ab3f03b5",
+  "type": "distance_tree",
+  "label": "Distance matrix and UPGMA tree",
+  "status": "completed",
+  "created_at": "2026-05-23T17:01:34Z",
+  "started_at": "2026-05-23T17:01:34Z",
+  "finished_at": "2026-05-23T17:01:35Z",
+  "project_dir": "E:\\Darevskia_ID",
+  "options": {
+    "project_dir": "E:\\Darevskia_ID",
+    "input_csv": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\specimen_variation.csv",
+    "output_dir": "E:\\Darevskia_ID\\outputs\\distance_tree_web_run",
+    "source": "mean_pattern",
+    "metric": "euclidean",
+    "standardize": "true",
+    "image_width": "90",
+    "image_height": "240"
+  },
+  "log_path": "E:\\Darevskia_ID\\portable_app\\web_runs\\runs\\6d80eb9046bd4279b4879909ab3f03b5.log",
+  "return_code": 0,
+  "command": [],
+  "progress": 100.0,
+  "progress_text": "Finished.",
+  "summary": {
+    "mode": "distance_tree",
+    "input_csv": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\specimen_variation.csv",
+    "output_dir": "E:\\Darevskia_ID\\outputs\\distance_tree_web_run",
+    "source": "mean_pattern",
+    "metric": "euclidean",
+    "standardize": false,
+    "n_specimens": 12,
+    "n_features": 21600,
+    "distance_matrix_csv": "E:\\Darevskia_ID\\outputs\\distance_tree_web_run\\distance_matrix.csv",
+    "upgma_tree_newick": "E:\\Darevskia_ID\\outputs\\distance_tree_web_run\\upgma_tree.newick",
+    "upgma_tree_svg": "E:\\Darevskia_ID\\outputs\\distance_tree_web_run\\upgma_tree.svg"
+  },
+  "error_message": null,
+  "output_dir": "E:\\Darevskia_ID\\outputs\\distance_tree_web_run"
+}

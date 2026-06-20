@@ -1,0 +1,74 @@
+$ C:\Users\HP\lizard_ai_env\Scripts\python.exe -B E:\Darevskia_ID\portable_app\tools\darevskia_pattern_variation.py --project-dir E:\Darevskia_ID --output E:\Darevskia_ID\outputs\pattern_variation_web_run --include-split both --gallery-sampling last --thumb-size 256 --preview-side 900 --max-side 2200 --belt-width 360 --belt-height 900 --belt-breadth-fraction 0.14 --inner-margin 0.03 --landmarks E:\Darevskia_ID\config\axis_belt_landmarks.csv --max-specimens 12 --gallery-per-specimen 4 --query-per-specimen 1
+
+{
+  "mode": "pattern_variation",
+  "project_dir": "E:\\Darevskia_ID",
+  "output_dir": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run",
+  "landmarks": "E:\\Darevskia_ID\\config\\axis_belt_landmarks.csv",
+  "include_split": "both",
+  "n_selected_records": 60,
+  "n_processed_images": 60,
+  "n_missing_landmarks": 0,
+  "n_specimens": 12,
+  "split_counts": {
+    "gallery": 48,
+    "query": 12
+  },
+  "belt_breadth_fraction": 0.14,
+  "belt_breadth_px": null,
+  "mean_deviation_score": 0.400409,
+  "mean_asymmetry_score": 0.456972,
+  "median_deviation_score": 0.395439,
+  "median_asymmetry_score": 0.459562,
+  "most_deviant_image": {
+    "specimen_id": "9",
+    "split": "gallery",
+    "relative_path": "gallery\\specimen_9\\_DSC0170.JPG",
+    "image_file": "_DSC0170.JPG",
+    "deviation_score": 0.464775,
+    "consensus_map_similarity": 0.525593,
+    "consensus_binary_distance": 0.450327,
+    "asymmetry_score": 0.458859,
+    "left_right_map_similarity": 0.523602,
+    "left_right_binary_distance": 0.432551,
+    "quality_flag": "ok",
+    "belt_file": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\belt\\gallery\\specimen_9\\_DSC0170_belt.png",
+    "spots_file": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\spots\\gallery\\specimen_9\\_DSC0170_spots.png",
+    "deviation_file": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\deviation\\gallery\\specimen_9\\_DSC0170_deviation.png",
+    "asymmetry_file": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\asymmetry\\gallery\\specimen_9\\_DSC0170_asymmetry.png"
+  },
+  "most_asymmetric_image": {
+    "specimen_id": "3",
+    "split": "gallery",
+    "relative_path": "gallery\\specimen_3\\_DSC0078.JPG",
+    "image_file": "_DSC0078.JPG",
+    "deviation_score": 0.398424,
+    "consensus_map_similarity": 0.629766,
+    "consensus_binary_distance": 0.440709,
+    "asymmetry_score": 0.50813,
+    "left_right_map_similarity": 0.475006,
+    "left_right_binary_distance": 0.482834,
+    "quality_flag": "ok",
+    "belt_file": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\belt\\gallery\\specimen_3\\_DSC0078_belt.png",
+    "spots_file": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\spots\\gallery\\specimen_3\\_DSC0078_spots.png",
+    "deviation_file": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\deviation\\gallery\\specimen_3\\_DSC0078_deviation.png",
+    "asymmetry_file": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\asymmetry\\gallery\\specimen_3\\_DSC0078_asymmetry.png"
+  },
+  "consensus_files": {
+    "consensus_pattern": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\consensus\\consensus_pattern.png",
+    "consensus_outline": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\consensus\\consensus_outline.png",
+    "consensus_spot_frequency": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\consensus\\consensus_spot_frequency.png",
+    "mean_absolute_deviation": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\consensus\\mean_absolute_deviation.png"
+  },
+  "outputs": {
+    "image_variation_csv": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\image_variation.csv",
+    "specimen_variation_csv": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\specimen_variation.csv",
+    "belt_dir": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\belt",
+    "spots_dir": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\spots",
+    "overlay_dir": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\overlay",
+    "consensus_dir": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\consensus",
+    "deviation_dir": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\deviation",
+    "asymmetry_dir": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\asymmetry",
+    "specimens_dir": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\specimens"
+  }
+}

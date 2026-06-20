@@ -1,0 +1,15 @@
+Running in-process distance matrix and UPGMA tree analysis.
+
+{
+  "mode": "distance_tree",
+  "input_csv": "E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\specimen_variation.csv",
+  "output_dir": "E:\\Darevskia_ID\\outputs\\distance_tree_web_run",
+  "source": "mean_pattern",
+  "metric": "euclidean",
+  "standardize": false,
+  "n_specimens": 12,
+  "n_features": 21600,
+  "distance_matrix_csv": "E:\\Darevskia_ID\\outputs\\distance_tree_web_run\\distance_matrix.csv",
+  "upgma_tree_newick": "E:\\Darevskia_ID\\outputs\\distance_tree_web_run\\upgma_tree.newick",
+  "upgma_tree_svg": "E:\\Darevskia_ID\\outputs\\distance_tree_web_run\\upgma_tree.svg"
+}

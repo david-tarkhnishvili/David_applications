@@ -1,0 +1,4 @@
+$ C:\Users\HP\AppData\Local\Python\pythoncore-3.14-64\python.exe -B E:\Darevskia_ID\portable_app\tools\annotate_neck_patch.py --project-dir E:\Darevskia_ID --point-count 5 --split gallery --gallery-sampling last --display-mode viewer --window-width 1600 --window-height 950 --output-csv E:\Darevskia_ID\config\axis_belt_landmarks.csv --max-specimens 8 --gallery-per-specimen 6 --query-per-specimen 1
+
+Saved landmarks to: E:\Darevskia_ID\config\axis_belt_landmarks.csv
+Annotated this session: 41

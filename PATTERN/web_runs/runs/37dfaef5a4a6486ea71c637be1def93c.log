@@ -1,0 +1,3 @@
+$ C:\Users\HP\lizard_ai_env\Scripts\python.exe -B E:\Darevskia_ID\portable_app\tools\annotate_neck_patch.py --project-dir E:\Darevskia_ID --point-count 5 --split gallery --gallery-sampling last --display-mode viewer --window-width 1600 --window-height 950 --output-csv E:\Darevskia_ID\config\axis_belt_landmarks.csv --max-images 4 --max-specimens 12 --gallery-per-specimen 4 --query-per-specimen 1
+
+No images need annotation with the current filters.

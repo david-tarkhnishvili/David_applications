@@ -1,0 +1,39 @@
+$ C:\Users\HP\AppData\Local\Python\pythoncore-3.14-64\python.exe -B E:\Darevskia_ID\portable_app\tools\darevskia_pattern_variation.py --project-dir E:\Darevskia_ID --output E:\Darevskia_ID\outputs\pattern_variation_web_run --include-split both --gallery-sampling last --thumb-size 256 --preview-side 900 --max-side 2200 --belt-width 360 --belt-height 900 --belt-breadth-fraction 0.14 --inner-margin 0.03 --landmarks E:\Darevskia_ID\config\axis_belt_landmarks.csv --max-specimens 12 --gallery-per-specimen 4 --query-per-specimen 1
+
+Traceback (most recent call last):
+  File "E:\Darevskia_ID\portable_app\tools\darevskia_pattern_variation.py", line 424, in <module>
+    main()
+    ~~~~^^
+  File "E:\Darevskia_ID\portable_app\tools\darevskia_pattern_variation.py", line 377, in main
+    specimen_df.to_csv(specimen_csv, index=False)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HP\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\core\generic.py", line 3988, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        path_or_buf,
+        ^^^^^^^^^^^^
+    ...<14 lines>...
+        storage_options=storage_options,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\HP\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\io\formats\format.py", line 1025, in to_csv
+    csv_formatter.save()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\io\formats\csvs.py", line 251, in save
+    with get_handle(
+         ~~~~~~~~~~^
+        self.filepath_or_buffer,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        storage_options=self.storage_options,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ) as handles:
+    ^
+  File "C:\Users\HP\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pandas\io\common.py", line 926, in get_handle
+    handle = open(
+        handle,
+    ...<3 lines>...
+        newline="",
+    )
+PermissionError: [Errno 13] Permission denied: 'E:\\Darevskia_ID\\outputs\\pattern_variation_web_run\\specimen_variation.csv'
