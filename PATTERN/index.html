@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Darevskia ID Portable App</title>
+  <meta name="description" content="GitHub Pages entry point for the Darevskia dorsal-pattern recognition portable app.">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17202e;
+      --muted: #5b6472;
+      --paper: #f5f7fa;
+      --panel: #ffffff;
+      --line: #d7dee9;
+      --accent: #0f766e;
+      --accent-dark: #115e59;
+      --amber: #b76b2c;
+      --code: #101827;
+      --code-text: #eef6ff;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(23, 32, 46, 0.045) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(23, 32, 46, 0.045) 1px, transparent 1px),
+        var(--paper);
+      background-size: 34px 34px;
+    }
+
+    main {
+      width: min(1140px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 42px 0;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 350px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .hero,
+    .panel,
+    .step {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 18px 44px rgba(23, 32, 46, 0.08);
+    }
+
+    .hero {
+      padding: clamp(24px, 5vw, 50px);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--accent-dark);
+      font-size: 0.84rem;
+      font-weight: 780;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(2.15rem, 6vw, 4.45rem);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 720px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.18rem);
+      line-height: 1.65;
+    }
+
+    .note {
+      margin: 24px 0 0;
+      padding: 14px 16px;
+      border-left: 4px solid var(--amber);
+      background: #fff7ed;
+      color: #693812;
+      border-radius: 6px;
+      line-height: 1.55;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .backend-config {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .backend-config input {
+      min-height: 44px;
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0 12px;
+      color: var(--ink);
+      font: inherit;
+    }
+
+    .backend-config button {
+      min-height: 44px;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      padding: 0 16px;
+      background: var(--accent);
+      color: #ffffff;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 730;
+      white-space: nowrap;
+    }
+
+    .status-line {
+      min-height: 1.4em;
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.4;
+    }
+
+    .start-box {
+      margin-top: 18px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8fafc;
+    }
+
+    .start-box h2 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+      letter-spacing: 0;
+    }
+
+    .start-box ol {
+      margin: 0;
+      padding-left: 22px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .start-box li + li {
+      margin-top: 4px;
+    }
+
+    a.button {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      background: var(--accent);
+      color: #ffffff;
+      font-weight: 730;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    a.button.secondary {
+      background: #ffffff;
+      color: var(--accent-dark);
+    }
+
+    pre,
+    code {
+      font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+    }
+
+    pre {
+      overflow-x: auto;
+      margin: 24px 0 0;
+      padding: 18px;
+      border-radius: 8px;
+      background: var(--code);
+      color: var(--code-text);
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .panel {
+      overflow: hidden;
+    }
+
+    .pattern {
+      position: relative;
+      min-height: 230px;
+      background: #e6dacb;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .pattern::before {
+      content: "";
+      position: absolute;
+      inset: 26px 54px;
+      border-radius: 45% 55% 53% 47%;
+      background:
+        radial-gradient(circle at 21% 25%, #1a2230 0 10px, transparent 11px),
+        radial-gradient(circle at 45% 18%, #1a2230 0 8px, transparent 9px),
+        radial-gradient(circle at 72% 27%, #1a2230 0 12px, transparent 13px),
+        radial-gradient(circle at 35% 48%, #1a2230 0 9px, transparent 10px),
+        radial-gradient(circle at 61% 52%, #1a2230 0 11px, transparent 12px),
+        radial-gradient(circle at 47% 78%, #1a2230 0 10px, transparent 11px),
+        #b9895d;
+      box-shadow: inset 0 0 0 12px rgba(255, 255, 255, 0.18);
+    }
+
+    .panel-body {
+      padding: 22px;
+    }
+
+    .panel h2 {
+      margin: 0 0 10px;
+      font-size: 1.14rem;
+      letter-spacing: 0;
+    }
+
+    .panel p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .step {
+      padding: 18px;
+      box-shadow: none;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    footer {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        padding: 24px 0;
+      }
+
+      .layout,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        order: -1;
+      }
+
+      .pattern {
+        min-height: 178px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      main {
+        width: min(100% - 20px, 1140px);
+      }
+
+      .hero {
+        padding: 22px;
+      }
+
+      a.button {
+        width: 100%;
+      }
+
+      .backend-config {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="layout">
+      <section class="hero" aria-labelledby="title">
+        <p class="eyebrow">Portable dorsal-pattern identification app</p>
+        <h1 id="title">Darevskia ID</h1>
+        <p class="lead">
+          This folder contains the portable browser interface for recognizing individual lizards from dorsal patterns.
+          It launches annotation, matching, and pattern-variation workflows from the local Python app.
+        </p>
+        <p class="note">
+          This web page cannot start a Windows <strong>.bat</strong> file by itself. First start the Python
+          backend on the computer that stores <strong>E:\Darevskia_ID\gallery</strong>, then open the app URL.
+          If the backend is not running, the buttons below will show a browser connection error.
+        </p>
+        <div class="start-box">
+          <h2>Start on this computer</h2>
+          <ol>
+            <li>Open File Explorer.</li>
+            <li>Go to <code>E:\Darevskia_ID\portable_app</code>.</li>
+            <li>Double-click <code>START_DAREVSKIA_LOCAL.bat</code> for local use, or <code>launch_stationary_backend.bat</code> for online tunnel use.</li>
+            <li>Leave the black Python window open while using the application.</li>
+            <li>Then click <strong>Open local app</strong> or paste your online tunnel URL below.</li>
+          </ol>
+        </div>
+        <div class="actions" aria-label="Primary actions">
+          <a class="button" id="openBackend" href="http://127.0.0.1:8094/">Open app</a>
+          <a class="button secondary" href="http://127.0.0.1:8094/">Open local app</a>
+          <a class="button secondary" href="README_PORTABLE.md">Portable setup</a>
+        </div>
+        <div class="backend-config">
+          <input id="backendUrl" type="url" inputmode="url" placeholder="Online backend URL, for example https://your-tunnel.example.com" aria-label="Online backend URL">
+          <button type="button" id="saveBackend">Save URL</button>
+        </div>
+        <p class="status-line" id="backendStatus"></p>
+        <pre><code>cd /d E:\Darevskia_ID\portable_app
+python -m pip install -r requirements.txt
+START_DAREVSKIA_LOCAL.bat</code></pre>
+      </section>
+
+      <aside class="panel" aria-label="Application summary">
+        <div class="pattern" role="img" aria-label="Stylized dorsal lizard pattern with recognition spots"></div>
+        <div class="panel-body">
+          <h2>Included workflows</h2>
+          <p>
+            Landmark annotation, five-point curved-belt matching, tripoint and quadrilateral matching,
+            result previews, logs, and pattern-variation summaries.
+          </p>
+        </div>
+      </aside>
+    </div>
+
+    <section class="steps" aria-label="Launch steps">
+      <article class="step">
+        <strong>1. Start the backend</strong>
+        <p>Double-click <code>START_DAREVSKIA_LOCAL.bat</code> in <code>E:\Darevskia_ID\portable_app</code>.</p>
+      </article>
+      <article class="step">
+        <strong>2. Keep it open</strong>
+        <p>The black Python window is the application server. Closing it stops the app.</p>
+      </article>
+      <article class="step">
+        <strong>3. Open the app</strong>
+        <p>Use <code>http://127.0.0.1:8094/</code> locally, or your tunnel URL online.</p>
+      </article>
+    </section>
+
+    <footer>
+      The backend URL can be supplied as <code>?app=https://your-public-backend</code> or saved in this browser.
+      GitHub Pages remains the entry page; image analysis runs on the stationary computer.
+    </footer>
+  </main>
+  <script>
+    const input = document.querySelector("#backendUrl");
+    const openBackend = document.querySelector("#openBackend");
+    const saveBackend = document.querySelector("#saveBackend");
+    const statusLine = document.querySelector("#backendStatus");
+    const params = new URLSearchParams(window.location.search);
+    const queryUrl = params.get("app") || "";
+    const savedUrl = localStorage.getItem("darevskiaBackendUrl") || "";
+
+    function cleanUrl(value) {
+      return String(value || "").trim().replace(/\/+$/, "");
+    }
+
+    function setBackendUrl(value, persist) {
+      const url = cleanUrl(value);
+      if (!url) {
+        openBackend.href = "http://127.0.0.1:8094/";
+        input.value = "";
+        statusLine.textContent = "No online backend saved. The app button opens the local backend.";
+        return;
+      }
+      if (!/^https?:\/\//i.test(url)) {
+        statusLine.textContent = "Backend URL must start with http:// or https://.";
+        return;
+      }
+      openBackend.href = url + "/";
+      input.value = url;
+      statusLine.textContent = "App button points to " + url + "/";
+      if (persist) {
+        localStorage.setItem("darevskiaBackendUrl", url);
+      }
+    }
+
+    saveBackend.addEventListener("click", () => setBackendUrl(input.value, true));
+    setBackendUrl(queryUrl || savedUrl, Boolean(queryUrl));
+  </script>
+</body>
+</html>
